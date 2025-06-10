@@ -39,16 +39,10 @@ public class TaskService {
         .orElseThrow(() -> new RuntimeException("Status not found: " + taskCreateDTO.getStatus()));
 
     Task task = new Task();
-    task.setTitle(taskCreateDTO.getTitle());
-    task.setDescription(taskCreateDTO.getDescription());
 
-    // Set due_date based on status
-    LocalDate dueDate = calculateDueDate(taskCreateDTO.getStatus(), taskCreateDTO.getDueDate());
-    task.setDueDate(dueDate);
-    task.setStatus(status);
+    Task updatedTask = populateTaskDTO(taskCreateDTO, task, status);
 
-    Task savedTask = taskRepository.save(task);
-    return convertToDTO(savedTask);
+    return convertToDTO(updatedTask);
   }
 
   public Optional<TaskDTO> updateTask(Long id, TaskCreateDTO taskCreateDTO) {
@@ -66,7 +60,8 @@ public class TaskService {
           task.setDueDate(dueDate);
           task.setStatus(status);
 
-          Task updatedTask = taskRepository.save(task);
+          Task updatedTask = populateTaskDTO(taskCreateDTO, task, status);
+
           return convertToDTO(updatedTask);
         });
   }
@@ -89,6 +84,20 @@ public class TaskService {
       return LocalDate.now(); // Set to today
     }
     return providedDueDate; // Use provided date
+  }
+
+  private Task populateTaskDTO(TaskCreateDTO taskCreateDTO, Task task, Status status) {
+    task.setTitle(taskCreateDTO.getTitle());
+    task.setDescription(taskCreateDTO.getDescription());
+
+    // Set due_date based on status
+    LocalDate dueDate = calculateDueDate(taskCreateDTO.getStatus(), taskCreateDTO.getDueDate());
+    task.setDueDate(dueDate);
+    task.setStatus(status);
+
+    Task updatedTask = taskRepository.save(task);
+
+    return updatedTask;
   }
 
   private TaskDTO convertToDTO(Task task) {

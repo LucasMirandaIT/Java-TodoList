@@ -47,9 +47,13 @@ public class TaskController {
       @Valid @RequestBody TaskCreateDTO taskCreateDTO) {
     try {
       return taskService.updateTask(id, taskCreateDTO)
-          .map(task -> ResponseEntity.ok(task))
-          .orElse(ResponseEntity.notFound().build());
+          .map(ResponseEntity::ok)
+          .orElseGet(() -> {
+              System.out.println("❌ Task not found for update: ID " + id);
+              return ResponseEntity.notFound().build();
+          });
     } catch (RuntimeException e) {
+      System.out.println("❌ Exception while updating task: " + e.getMessage());
       return ResponseEntity.badRequest().build();
     }
   }

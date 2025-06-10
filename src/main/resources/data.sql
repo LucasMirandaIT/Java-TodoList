@@ -18,18 +18,4 @@ CREATE TABLE
   );
 
 -- Insert ENUMs as data
-INSERT IGNORE INTO status (name)
-VALUES
-  ('PENDING');
-
-INSERT IGNORE INTO status (name)
-VALUES
-  ('IN_PROGRESS');
-
-INSERT IGNORE INTO status (name)
-VALUES
-  ('COMPLETED');
-
-INSERT IGNORE INTO status (name)
-VALUES
-  ('CANCELED');
+INSERT IGNORE INTO status (name) VALUES ('PENDING'), ('IN_PROGRESS'), ('COMPLETED'), ('CANCELED');
