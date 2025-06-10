@@ -3,9 +3,12 @@
 A ToDo List application built with Spring Boot, MySQL, and following clean architecture principles for Stefanini FullStack Developer Test.
 
 ## Features
-
+- CRUD operations for tasks
+- Task status management (PENDING, IN_PROGRESS, COMPLETED, CANCELED)
 - MySQL database integration
-
+- RESTful API endpoints
+- GitHub Actions CI/CD pipeline
+- Validation and error handling
 
 ## Technology Stack
 
@@ -30,3 +33,4 @@ A ToDo List application built with Spring Boot, MySQL, and following clean archi
 4. Run the application:
    ```bash
    mvn spring-boot:run
+   ```
