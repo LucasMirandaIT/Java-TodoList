@@ -34,3 +34,32 @@ A ToDo List application built with Spring Boot, MySQL, and following clean archi
    ```bash
    mvn spring-boot:run
    ```
+## Endpoints
+
+/api/tasks
+
+| Method        | Description       | Example URL         | 
+| ------------- |------------------ |:------------------: |
+| @GET          | Fetch All Tasks   | /api/tasks          |
+| @GET          | Fetch Task by ID  | /api/tasks/{id}     | 
+| @POST         | Create new Task   | /api/tasks          |
+| @PUT          | Update Task by ID | /api/tasks/{id}     |
+| @DELETE       | Delete Task by ID | /api/tasks/{id}     | 
+
+### Tasks Model (use on Post and Put)
+```
+{
+  "title": "Task Title",
+  "description": "Task Description",
+  "status": "PENDING"
+}
+```
+
+### Status Enum (Values that are valid for Status field)
+
+| ENUM              | Description                                              |
+| ----------------- |:-------------------------------------------------------: |
+| PENDING           | New task, waiting to be done                             | 
+| IN_PROGRESS       | Task In Progress                                         | 
+| FINISHED          | Task Completed (Will add dueDate to its record on DB)    | 
+| CANCELED          | Task Canceled (Will add dueDate to its record on DB)     | 
