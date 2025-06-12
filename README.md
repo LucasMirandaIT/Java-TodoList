@@ -1,3 +1,5 @@
+[![Deploy Spring Boot app to AWS EC2](https://github.com/LucasMirandaIT/Java-TodoList/actions/workflows/deploy.yml/badge.svg)](https://github.com/LucasMirandaIT/Java-TodoList/actions/workflows/deploy.yml)
+
 # ToDo List Application
 
 A ToDo List application built with Spring Boot, MySQL, and following clean architecture principles for Stefanini FullStack Developer Test.
@@ -63,3 +65,7 @@ A ToDo List application built with Spring Boot, MySQL, and following clean archi
 | IN_PROGRESS       | Task In Progress                                         | 
 | FINISHED          | Task Completed (Will add dueDate to its record on DB)    | 
 | CANCELED          | Task Canceled (Will add dueDate to its record on DB)     | 
+
+### AWS EC2 Public IP to test: 
+
+http://3.144.228.127:8080/
