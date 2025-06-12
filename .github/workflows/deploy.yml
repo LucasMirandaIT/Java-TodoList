@@ -29,3 +29,14 @@ jobs:
           key: ${{ secrets.EC2_KEY }}       # SSH private key for EC2 access
           source: "target/*.jar"
           target: "~/app.jar"
+
+      - name: SSH to EC2 and run JAR
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            sudo cp ~/app.jar /opt/todo/app.jar       # Copy the new JAR to the app directory
+            echo "Deployment complete!"               # Confirmation message
+
