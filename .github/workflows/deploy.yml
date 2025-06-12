@@ -33,3 +33,16 @@ jobs:
           source: "target/todo.jar"
           target: "~/"
           strip_components: 1
+
+      - name: Start Spring Boot app on EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            export RDS_URL="${{ secrets.RDS_URL }}"
+            export RDS_USERNAME="${{ secrets.RDS_USERNAME }}"
+            export RDS_PASSWORD="${{ secrets.RDS_PASSWORD }}"
+            pkill -f 'java -jar' || true
+            nohup java -jar ~/todo.jar > app.log 2>&1 &
