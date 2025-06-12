@@ -22,6 +22,9 @@ public class TaskController {
   @GetMapping
   public ResponseEntity<List<TaskDTO>> getAllTasks() {
     List<TaskDTO> tasks = taskService.getAllTasks();
+    if (tasks.isEmpty()) {
+      return ResponseEntity.noContent().build();
+    }
     return ResponseEntity.ok(tasks);
   }
 
@@ -49,7 +52,7 @@ public class TaskController {
       return taskService.updateTask(id, taskCreateDTO)
           .map(ResponseEntity::ok)
           .orElseGet(() -> {
-              return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
           });
     } catch (RuntimeException e) {
       return ResponseEntity.badRequest().build();
