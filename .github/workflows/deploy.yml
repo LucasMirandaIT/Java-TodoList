@@ -29,16 +29,13 @@ jobs:
           key: ${{ secrets.EC2_KEY }}       # SSH private key for EC2 access
           source: "target/todo.jar"
           target: "~/app.jar"
-  access-ec2:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Setup SSH key
-      run: |
-        echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-    - name: Add EC2 host to known hosts
-      run: ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
-    - name: Check built JAR size
-      run: ls -lh target/app.jar
-    - name: Copy JAR via scp
-      run: scp -i ~/.ssh/id_rsa target/app.jar ubuntu@${{ secrets.EC2_HOST }}:~/app.jar
+      - name: Setup SSH key
+        run: |
+          echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+      - name: Add EC2 host to known hosts
+        run: ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+      - name: Check built JAR size
+        run: ls -lh target/app.jar
+      - name: Copy JAR via scp
+        run: scp -i ~/.ssh/id_rsa target/app.jar ubuntu@${{ secrets.EC2_HOST }}:~/app.jar
