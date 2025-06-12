@@ -45,4 +45,4 @@ jobs:
             export RDS_USERNAME="${{ secrets.RDS_USERNAME }}"
             export RDS_PASSWORD="${{ secrets.RDS_PASSWORD }}"
             pkill -f 'java -jar' || true
-            nohup java -jar ~/todo.jar > app.log 2>&1 &
+            java -jar ~/todo.jar
