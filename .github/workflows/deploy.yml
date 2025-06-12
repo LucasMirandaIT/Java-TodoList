@@ -31,10 +31,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           source: "target/todo.jar"
-          target: "~/todo.jar"
-          strip_components: 0
-          rm: false
-          tar_tmp_path: ""
+          target: "~"
 
       - name: Run app on EC2
         uses: appleboy/ssh-action@v0.1.4
