@@ -1,12 +1,12 @@
-name: Deploy to AWS EC2
+name: Deploy to AWS EC2         # Basic Workflow for deploying a Java application to AWS EC2
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]          # Trigger on push to main branch
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest      # Use the latest Ubuntu runner same way the EC2 instance is set up
 
     steps:
       - name: Checkout code
@@ -24,8 +24,8 @@ jobs:
       - name: Deploy JAR to EC2
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: ${{ secrets.EC2_HOST }}     # Use secrets for sensitive data
           username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
+          key: ${{ secrets.EC2_KEY }}       # SSH private key for EC2 access
           source: "target/*.jar"
           target: "~/app.jar"
