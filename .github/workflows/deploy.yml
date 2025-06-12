@@ -39,7 +39,16 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           source: "target/todo.jar"
-          target: "/home/ubuntu/todo.jar"
+          target: "/home/ubuntu/"
+          strip_components: 1
+
+      - name: Test SSH Connection
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+          script: echo "SSH connection successful"
 
       - name: Run app on EC2
         uses: appleboy/ssh-action@v0.1.4
