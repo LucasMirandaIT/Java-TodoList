@@ -45,4 +45,4 @@ jobs:
             export RDS_USERNAME="${{ secrets.RDS_USERNAME }}"
             export RDS_PASSWORD="${{ secrets.RDS_PASSWORD }}"
             pkill -f 'java -jar' || true
-            java -jar ~/todo.jar
+            screen -dmS springboot java -jar ~/todo.jar
