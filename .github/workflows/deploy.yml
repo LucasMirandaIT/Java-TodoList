@@ -50,5 +50,16 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             pkill -f 'java -jar ~/todo.jar' || true
+            export RDS_URL="${{ secrets.RDS_URL }}"
+            export RDS_USERNAME="${{ secrets.RDS_USERNAME }}"
+            export RDS_PASSWORD="${{ secrets.RDS_PASSWORD }}"
             nohup java -jar ~/todo.jar > app.log 2>&1 &
             echo "App started in background."
+            sleep 10
+            if pgrep -f 'java -jar ~/todo.jar' > /dev/null; then
+              echo "Application is running successfully"
+            else
+              echo "Application failed to start. Check app.log for details"
+              cat app.log
+              exit 1
+            fi
