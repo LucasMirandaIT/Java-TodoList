@@ -37,7 +37,7 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
-          key_path: ~/.ssh/deploy_key
+          key: ${{ secrets.EC2_KEY }}
           source: "target/todo.jar"
           target: "/home/ubuntu/todo.jar"
 
@@ -46,7 +46,7 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
-          key_path: ~/.ssh/deploy_key
+          key: ${{ secrets.EC2_KEY }}
           script: |
             pkill -f 'java -jar ~/todo.jar' || true
             nohup java -jar ~/todo.jar > app.log 2>&1 &
@@ -57,5 +57,5 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
-          key_path: ~/.ssh/deploy_key
+          key: ${{ secrets.EC2_KEY }}
           script: ls -lh ~/todo.jar
