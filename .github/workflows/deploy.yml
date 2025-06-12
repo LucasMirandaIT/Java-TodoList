@@ -30,13 +30,13 @@ jobs:
           source: "target/*.jar"
           target: "~/app.jar"
 
-      - name: SSH to EC2 and run JAR
+      - name: SSH to EC2 and run Spring Boot app
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           script: |
-            sudo cp ~/app.jar /opt/todo/app.jar       # Copy the new JAR to the app directory
-            echo "Deployment complete!"               # Confirmation message
+            nohup java -jar ~/app.jar > app.log 2>&1 &
+            echo "App is starting in the background..."
 
