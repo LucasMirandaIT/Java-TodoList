@@ -39,7 +39,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           source: "target/todo.jar"
-          target: "/home/ubuntu/"
+          target: "~/"
           strip_components: 1
 
       - name: Run app on EC2
