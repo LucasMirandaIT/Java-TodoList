@@ -42,16 +42,8 @@ jobs:
           target: "/home/ubuntu/"
           strip_components: 1
 
-      - name: Test SSH Connection
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          script: echo "SSH connection successful"
-
       - name: Run app on EC2
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v1.2.2
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
@@ -60,11 +52,3 @@ jobs:
             pkill -f 'java -jar ~/todo.jar' || true
             nohup java -jar ~/todo.jar > app.log 2>&1 &
             echo "App started in background."
-
-      - name: Verify app jar size on EC2
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          script: ls -lh ~/todo.jar
