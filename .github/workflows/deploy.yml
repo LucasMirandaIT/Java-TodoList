@@ -27,16 +27,5 @@ jobs:
           host: ${{ secrets.EC2_HOST }}     # Use secrets for sensitive data
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}       # SSH private key for EC2 access
-          source: "target/*.jar"
+          source: "target/todo.jar"
           target: "~/app.jar"
-
-      - name: SSH to EC2 and run Spring Boot app
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            nohup java -jar ~/app.jar > app.log 2>&1 &
-            echo "App is starting in the background..."
-
